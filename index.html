@@ -6,53 +6,82 @@
 <title>Johnson Tractor Daily Planner</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-
+/* ── DARK MODE — neutral dark, no color cast ── */
 :root {
-  --bg:#0D1A0D; --bg2:#132013; --bg3:#1A2E1A;
-  --border:rgba(255,255,255,0.08); --border2:rgba(255,255,255,0.16);
-  --text:#E8EEE8; --text2:#8BA08B; --text3:#506050; --accent:#4CAF50;
-  --ops:#4CAF50;    --ops-bg:rgba(76,175,80,0.13);    --ops-t:#81C784;
-  --sales:#C62828;  --sales-bg:rgba(198,40,40,0.13);  --sales-t:#EF9A9A;
-  --admin:#F9A825;  --admin-bg:rgba(249,168,37,0.13); --admin-t:#FFD54F;
-  --comms:#0288D1;  --comms-bg:rgba(2,136,209,0.13);  --comms-t:#4FC3F7;
-  --field:#6D4C41;  --field-bg:rgba(109,76,65,0.13);  --field-t:#BCAAA4;
-  --shared:#7B1FA2; --shared-bg:rgba(123,31,162,0.13);--shared-t:#CE93D8;
-  --flex:#546E7A;   --flex-bg:rgba(84,110,122,0.13);  --flex-t:#90A4AE;
-  --r:8px; --rlg:12px; --sw:220px;
+  --bg:#111214; --bg2:#1A1C20; --bg3:#22252B;
+  --border:rgba(255,255,255,0.09); --border2:rgba(255,255,255,0.18);
+  --text:#ECEEF2; --text2:#9CA3AF; --text3:#6B7280; --accent:#D4251C;
+  --shadow:rgba(0,0,0,0.5);
+  --ops:#D4251C;    --ops-bg:rgba(212,37,28,0.14);    --ops-t:#FCA5A5;
+  --sales:#4A8FE8;  --sales-bg:rgba(74,143,232,0.14); --sales-t:#93C5FD;
+  --admin:#D97706;  --admin-bg:rgba(217,119,6,0.14);  --admin-t:#FCD34D;
+  --comms:#8B7FE8;  --comms-bg:rgba(139,127,232,0.14);--comms-t:#C4B5FD;
+  --field:#E07C2A;  --field-bg:rgba(224,124,42,0.14); --field-t:#FDBA74;
+  --shared:#6B7280; --shared-bg:rgba(107,114,128,0.14);--shared-t:#D1D5DB;
+  --flex:#4B5563;   --flex-bg:rgba(75,85,99,0.14);   --flex-t:#9CA3AF;
+  --r:8px; --rlg:12px; --sw:230px;
   --font:'DM Sans',sans-serif; --mono:'DM Mono',monospace;
+}
+/* ── LIGHT MODE ── */
+body.light {
+  --bg:#F5F5F5; --bg2:#FFFFFF; --bg3:#EBEBEB;
+  --border:rgba(0,0,0,0.08); --border2:rgba(0,0,0,0.15);
+  --text:#111827; --text2:#374151; --text3:#9CA3AF; --accent:#B91C1C;
+  --shadow:rgba(0,0,0,0.07);
+  --ops:#B91C1C;    --ops-bg:rgba(185,28,28,0.09);    --ops-t:#B91C1C;
+  --sales:#1D6FD8;  --sales-bg:rgba(29,111,216,0.09); --sales-t:#1D6FD8;
+  --admin:#B45309;  --admin-bg:rgba(180,83,9,0.09);   --admin-t:#B45309;
+  --comms:#5B4FCC;  --comms-bg:rgba(91,79,204,0.09);  --comms-t:#5B4FCC;
+  --field:#C2410C;  --field-bg:rgba(194,65,12,0.09);  --field-t:#C2410C;
+  --shared:#374151; --shared-bg:rgba(55,65,81,0.09);  --shared-t:#374151;
+  --flex:#4B5563;   --flex-bg:rgba(75,85,99,0.09);    --flex-t:#4B5563;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;}
-body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;}
+body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;transition:background .2s,color .2s;}
 .hidden{display:none!important;}
+
+/* THEME TOGGLE */
+.theme-toggle{position:fixed;top:14px;right:16px;z-index:200;background:var(--bg2);border:1px solid var(--border2);
+  border-radius:20px;padding:5px 13px;cursor:pointer;font-family:var(--font);font-size:12px;color:var(--text2);
+  display:flex;align-items:center;gap:6px;box-shadow:0 2px 8px var(--shadow);transition:background .15s;}
+.theme-toggle:hover{background:var(--bg3);color:var(--text);}
 
 /* LOGIN */
 #loginScreen{height:100vh;display:flex;align-items:center;justify-content:center;
-  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,0.025) 39px,rgba(255,255,255,0.025) 40px),
-  repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,0.025) 39px,rgba(255,255,255,0.025) 40px);}
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(128,128,128,0.05) 39px,rgba(128,128,128,0.05) 40px),
+  repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(128,128,128,0.05) 39px,rgba(128,128,128,0.05) 40px);}
 .login-box{text-align:center;}
-.logo-mark{font-family:var(--mono);font-size:52px;font-weight:500;color:var(--accent);letter-spacing:8px;line-height:1;}
-.logo-tagline{font-size:11px;color:var(--text3);letter-spacing:4px;text-transform:uppercase;margin-top:8px;margin-bottom:32px;}
-.login-card{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--rlg);padding:28px 32px;width:320px;}
+.jt-logo-wrap{display:flex;justify-content:center;align-items:center;margin-bottom:14px;
+  background:var(--bg2);border:1px solid var(--border);border-radius:var(--rlg);
+  padding:18px 32px;display:inline-flex;}
+.jt-logo-wrap img{max-height:60px;max-width:260px;object-fit:contain;}
+body.light .jt-logo-wrap img.logo-dark{display:none;}
+body.light .jt-logo-wrap img.logo-light{display:block;}
+.jt-logo-wrap img.logo-light{display:none;}
+.logo-tagline{font-size:11px;color:var(--text3);letter-spacing:4px;text-transform:uppercase;margin-top:8px;margin-bottom:24px;}
+.login-card{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--rlg);padding:28px 32px;width:340px;box-shadow:0 4px 24px var(--shadow);}
 .login-prompt{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:2px;margin-bottom:16px;}
 .login-btns{display:flex;gap:12px;}
 .login-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;padding:18px 10px;
   background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);
   color:var(--text);font-family:var(--font);font-size:14px;font-weight:500;cursor:pointer;transition:border-color .15s,background .15s;}
-.login-btn:hover{border-color:var(--accent);background:rgba(76,175,80,0.08);}
+.login-btn:hover{border-color:var(--accent);background:var(--ops-bg);}
 .avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;}
 .login-hint{font-size:11px;color:var(--text3);margin-top:14px;}
-.jt-logo{display:flex;justify-content:center;margin-bottom:8px;}
-.jt-name{font-family:var(--mono);font-size:28px;font-weight:500;color:#4CAF50;letter-spacing:3px;line-height:1;text-transform:uppercase;}
 
 /* APP */
 #appScreen{display:flex;height:100vh;overflow:hidden;}
-.sidebar{width:var(--sw);background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;}
-.sb-top{padding:18px 14px 14px;border-bottom:1px solid var(--border);}
+.sidebar{width:var(--sw);background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;box-shadow:2px 0 8px var(--shadow);}
+.sb-top{padding:16px 14px 14px;border-bottom:1px solid var(--border);}
 .brand{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
-.brand-mark{font-family:var(--mono);font-size:15px;font-weight:500;color:var(--accent);letter-spacing:2px;
-  background:rgba(55,138,221,0.1);border:1px solid rgba(76,175,80,0.25);padding:4px 8px;border-radius:5px;}
-.brand-name{font-size:12px;color:var(--text2);}
+.brand-logo{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:6px 8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.brand-logo img{max-height:28px;max-width:100px;object-fit:contain;}
+body.light .brand-logo img.logo-dark{display:none;}
+body.light .brand-logo img.logo-light{display:block;}
+.brand-logo img.logo-light{display:none;}
+.brand-text{display:flex;flex-direction:column;min-width:0;}
+.brand-name{font-size:11px;color:var(--text3);white-space:nowrap;}
 .user-pill{display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);
   border-radius:20px;padding:5px 12px;font-size:12px;color:var(--text2);}
 .user-pill .avatar{width:20px;height:20px;font-size:9px;}
@@ -60,8 +89,8 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 .nav-btn{display:flex;align-items:center;gap:9px;width:100%;padding:8px 10px;background:none;border:none;
   border-radius:var(--r);color:var(--text2);font-family:var(--font);font-size:13px;cursor:pointer;transition:background .12s,color .12s;}
 .nav-btn:hover{background:var(--bg3);color:var(--text);}
-.nav-btn.active{background:rgba(76,175,80,0.12);color:var(--accent);}
-.badge{margin-left:auto;background:var(--shared);color:#fff;font-size:10px;font-weight:600;
+.nav-btn.active{background:var(--ops-bg);color:var(--ops-t);}
+.badge{margin-left:auto;background:var(--accent);color:#fff;font-size:10px;font-weight:600;
   min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 5px;}
 .sb-days{padding:12px 8px;flex:1;overflow-y:auto;}
 .sb-days-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;padding-left:4px;}
@@ -73,13 +102,11 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 .signout-btn{display:flex;align-items:center;gap:8px;width:100%;background:none;border:none;color:var(--text3);
   font-family:var(--font);font-size:12px;cursor:pointer;padding:7px 10px;border-radius:var(--r);transition:color .12s,background .12s;}
 .signout-btn:hover{background:var(--bg3);color:var(--text2);}
-
-/* MAIN */
-.main{flex:1;overflow-y:auto;}
+.main{flex:1;overflow-y:auto;background:var(--bg);}
 .view{padding:26px 30px;max-width:980px;}
 .view-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px;gap:12px;flex-wrap:wrap;}
 .view-head-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-.view-title{font-size:21px;font-weight:500;}
+.view-title{font-size:21px;font-weight:500;color:var(--text);}
 .view-sub{font-size:12px;color:var(--text3);margin-top:3px;}
 .btn-primary{background:var(--accent);color:#fff;border:none;border-radius:var(--r);padding:8px 16px;
   font-family:var(--font);font-size:13px;font-weight:500;cursor:pointer;transition:opacity .15s;white-space:nowrap;}
@@ -87,29 +114,29 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 .btn-ghost{background:none;color:var(--text2);border:1px solid var(--border2);border-radius:var(--r);padding:8px 16px;
   font-family:var(--font);font-size:13px;cursor:pointer;transition:background .12s,color .12s;}
 .btn-ghost:hover{background:var(--bg3);color:var(--text);}
-.person-toggle{display:flex;gap:3px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:3px;}
+.person-toggle{display:flex;gap:3px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:3px;}
 .person-btn{padding:5px 12px;border-radius:5px;border:none;background:none;color:var(--text2);
   font-family:var(--font);font-size:12px;font-weight:500;cursor:pointer;transition:background .12s,color .12s;}
-.person-btn.active{background:var(--bg3);color:var(--text);}
+.person-btn.active{background:var(--bg2);color:var(--text);box-shadow:0 1px 3px var(--shadow);}
 .legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
 .leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2);}
 .leg-dot{width:8px;height:8px;border-radius:50%;}
 
 /* SCHEDULE */
-.sched-grid{border:1px solid var(--border);border-radius:var(--rlg);overflow:hidden;}
-.sched-head{display:grid;background:var(--bg2);border-bottom:1px solid var(--border);}
-.sh-cell{font-size:11px;font-weight:500;color:var(--text3);padding:8px 12px;text-transform:uppercase;letter-spacing:.05em;}
+.sched-grid{border:1px solid var(--border);border-radius:var(--rlg);overflow:hidden;box-shadow:0 2px 12px var(--shadow);}
+.sched-head{display:grid;background:var(--bg3);border-bottom:1px solid var(--border);}
+.sh-cell{font-size:11px;font-weight:600;color:var(--text3);padding:8px 12px;text-transform:uppercase;letter-spacing:.05em;}
 .sh-cell+.sh-cell{border-left:1px solid var(--border);}
 .sched-row{display:grid;border-bottom:1px solid var(--border);}
 .sched-row:last-child{border-bottom:none;}
 .sched-row.m5{min-height:34px;} .sched-row.m15{min-height:46px;} .sched-row.m30{min-height:62px;}
 .sched-row.sec-break{border-top:2px solid var(--border2);}
-.t-cell{font-family:var(--mono);font-size:10px;color:var(--text3);padding:0 8px;background:var(--bg2);
+.t-cell{font-family:var(--mono);font-size:10px;color:var(--text3);padding:0 8px;background:var(--bg3);
   border-right:1px solid var(--border);display:flex;align-items:center;white-space:nowrap;}
 .b-cell{padding:5px 11px;display:flex;flex-direction:column;justify-content:center;cursor:pointer;
-  transition:background .1s;border-right:1px solid var(--border);position:relative;}
+  background:var(--bg2);transition:background .1s;border-right:1px solid var(--border);position:relative;}
 .b-cell:last-child{border-right:none;}
-.b-cell:hover{background:rgba(255,255,255,0.025);}
+.b-cell:hover{background:var(--bg3);}
 .b-cell.empty:hover .empty-hint{opacity:1;}
 .empty-hint{font-size:11px;color:var(--text3);opacity:0;transition:opacity .15s;}
 .cat-bar{position:absolute;left:0;top:0;bottom:0;width:3px;}
@@ -128,7 +155,8 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 [class*="c-"] .b-pill{background:var(--cbg);color:var(--ct);}
 
 /* MESSAGES */
-.msg-wrap{display:flex;flex-direction:column;height:calc(100vh - 155px);border:1px solid var(--border);border-radius:var(--rlg);overflow:hidden;background:var(--bg2);}
+.msg-wrap{display:flex;flex-direction:column;height:calc(100vh - 155px);border:1px solid var(--border);
+  border-radius:var(--rlg);overflow:hidden;background:var(--bg2);box-shadow:0 2px 12px var(--shadow);}
 .msg-list{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:10px;}
 .msg-bub{max-width:70%;display:flex;flex-direction:column;gap:3px;}
 .msg-bub.mine{align-self:flex-end;align-items:flex-end;}
@@ -137,17 +165,17 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 .msg-who{font-weight:500;color:var(--text2);}
 .msg-tag{background:var(--ops-bg);color:var(--ops-t);font-size:10px;padding:1px 7px;border-radius:20px;font-weight:500;}
 .msg-text{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:9px 13px;font-size:13px;color:var(--text);line-height:1.5;}
-.msg-bub.mine .msg-text{background:rgba(76,175,80,0.15);border-color:rgba(76,175,80,0.25);}
-.compose{border-top:1px solid var(--border);padding:12px 14px;}
+.msg-bub.mine .msg-text{background:var(--ops-bg);border-color:transparent;}
+.compose{border-top:1px solid var(--border);padding:12px 14px;background:var(--bg2);}
 .compose-tag{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);
-  padding:6px 11px;color:var(--text2);font-family:var(--font);font-size:12px;outline:none;margin-bottom:8px;}
+  padding:6px 11px;color:var(--text);font-family:var(--font);font-size:12px;outline:none;margin-bottom:8px;}
 .compose-tag::placeholder{color:var(--text3);}
-.compose-tag:focus{border-color:var(--border2);}
+.compose-tag:focus{border-color:var(--accent);}
 .compose-row{display:flex;gap:8px;align-items:flex-end;}
 .compose-in{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);
   padding:9px 13px;color:var(--text);font-family:var(--font);font-size:13px;resize:none;outline:none;min-height:42px;max-height:110px;}
 .compose-in::placeholder{color:var(--text3);}
-.compose-in:focus{border-color:var(--border2);}
+.compose-in:focus{border-color:var(--accent);}
 .send-btn{width:40px;height:40px;background:var(--accent);border:none;border-radius:var(--r);
   color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity .15s;}
 .send-btn:hover{opacity:.82;}
@@ -155,24 +183,28 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 /* MEETINGS */
 .meet-list{display:flex;flex-direction:column;gap:10px;}
 .meet-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rlg);padding:16px 18px;
-  display:flex;align-items:flex-start;justify-content:space-between;gap:14px;}
-.meet-card.pm{border-color:rgba(55,138,221,0.3);} .meet-card.pt{border-color:rgba(212,83,126,0.3);}
-.meet-card.acc{border-color:rgba(99,153,34,0.3);} .meet-card.dec{opacity:.5;}
+  display:flex;align-items:flex-start;justify-content:space-between;gap:14px;box-shadow:0 1px 4px var(--shadow);}
+.meet-card.pm{border-left:3px solid var(--accent);}
+.meet-card.pt{border-left:3px solid var(--comms);}
+.meet-card.acc{border-left:3px solid var(--sales);}
+.meet-card.dec{opacity:.45;}
 .meet-info{flex:1;}
-.meet-title{font-size:15px;font-weight:500;margin-bottom:5px;}
+.meet-title{font-size:15px;font-weight:500;margin-bottom:5px;color:var(--text);}
 .meet-meta{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--text2);}
 .meet-notes{font-size:12px;color:var(--text3);margin-top:5px;font-style:italic;}
 .meet-actions{display:flex;flex-direction:column;gap:6px;align-items:flex-end;flex-shrink:0;}
 .ms{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;white-space:nowrap;}
-.ms-p{background:var(--ops-bg);color:var(--ops-t);} .ms-a{background:var(--sales-bg);color:var(--sales-t);} .ms-d{background:var(--flex-bg);color:var(--flex-t);}
-.btn-acc{background:var(--sales-bg);color:var(--sales-t);border:1px solid rgba(99,153,34,0.3);border-radius:var(--r);padding:5px 12px;font-family:var(--font);font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;}
-.btn-dec{background:var(--flex-bg);color:var(--flex-t);border:1px solid rgba(136,135,128,0.3);border-radius:var(--r);padding:5px 12px;font-family:var(--font);font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;}
+.ms-p{background:var(--ops-bg);color:var(--ops-t);}
+.ms-a{background:var(--sales-bg);color:var(--sales-t);}
+.ms-d{background:var(--flex-bg);color:var(--flex-t);}
+.btn-acc{background:var(--sales-bg);color:var(--sales-t);border:none;border-radius:var(--r);padding:5px 12px;font-family:var(--font);font-size:12px;font-weight:500;cursor:pointer;}
+.btn-dec{background:var(--flex-bg);color:var(--flex-t);border:none;border-radius:var(--r);padding:5px 12px;font-family:var(--font);font-size:12px;font-weight:500;cursor:pointer;}
 
 /* MODALS */
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.65);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px;}
-.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--rlg);width:100%;max-width:460px;max-height:90vh;overflow-y:auto;display:flex;flex-direction:column;}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px;}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--rlg);width:100%;max-width:460px;max-height:90vh;overflow-y:auto;display:flex;flex-direction:column;box-shadow:0 8px 40px var(--shadow);}
 .m-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--border);}
-.m-title{font-size:16px;font-weight:500;}
+.m-title{font-size:16px;font-weight:500;color:var(--text);}
 .m-close{background:none;border:none;color:var(--text3);cursor:pointer;padding:4px;border-radius:4px;display:flex;align-items:center;transition:color .12s;}
 .m-close:hover{color:var(--text);}
 .m-body{padding:18px 20px;display:flex;flex-direction:column;gap:14px;}
@@ -182,7 +214,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 .f-label{font-size:12px;color:var(--text2);font-weight:500;}
 .f-input,.f-select{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);
   padding:8px 11px;color:var(--text);font-family:var(--font);font-size:13px;outline:none;width:100%;transition:border-color .12s;}
-.f-input:focus,.f-select:focus{border-color:var(--border2);}
+.f-input:focus,.f-select:focus{border-color:var(--accent);}
 .f-input::placeholder{color:var(--text3);}
 textarea.f-input{resize:vertical;}
 .cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;}
@@ -200,17 +232,35 @@ textarea.f-input{resize:vertical;}
 </head>
 <body>
 
+<button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">☀️ Light mode</button>
+
 <!-- LOGIN -->
 <div id="loginScreen">
   <div class="login-box">
-        <div class="login-card">
+    <div style="display:flex;justify-content:center;margin-bottom:12px;">
+      <div class="jt-logo-wrap">
+        <!-- dark mode: white version of logo -->
+        <img class="logo-dark"
+             src="https://www.johnsontractor.com/wp-content/uploads/2022/08/johnson-tractor-white.png"
+             alt="Johnson Tractor"
+             onerror="this.style.display='none';document.getElementById('jt-fallback').style.display='block'"/>
+        <!-- light mode: color version of logo -->
+        <img class="logo-light"
+             src="https://www.johnsontractor.com/wp-content/uploads/2021/07/johnson-tractor-logo.png"
+             alt="Johnson Tractor"
+             onerror="this.style.display='none'"/>
+        <span id="jt-fallback" style="display:none;font-family:var(--mono);font-size:22px;font-weight:600;color:var(--accent);letter-spacing:2px;">JOHNSON TRACTOR</span>
+      </div>
+    </div>
+    <div class="logo-tagline">Daily Planner · Baldwin, WI</div>
+    <div class="login-card">
       <p class="login-prompt">Sign in as</p>
       <div class="login-btns">
         <button class="login-btn" onclick="login('Mackenzie')">
-          <span class="avatar" style="background:#1B5E20;color:#A5D6A7;">MK</span>Mackenzie
+          <span class="avatar" style="background:#1E3A5F;color:#93C5FD;">MK</span>Mackenzie
         </button>
         <button class="login-btn" onclick="login('Manager')">
-          <span class="avatar" style="background:#B71C1C;color:#FFCDD2;">MGR</span>Manager
+          <span class="avatar" style="background:#7F1D1D;color:#FCA5A5;">MGR</span>Manager
         </button>
       </div>
       <p class="login-hint">Tap your name · changes sync live between you</p>
@@ -222,7 +272,22 @@ textarea.f-input{resize:vertical;}
 <div id="appScreen" class="hidden">
   <aside class="sidebar">
     <div class="sb-top">
-      <div class="brand"><div class="brand-mark" style="color:#4CAF50;border-color:rgba(76,175,80,0.35);background:rgba(76,175,80,0.1);">JT</div><div class="brand-name">Daily Planner · Baldwin, WI</div></div>
+      <div class="brand">
+        <div class="brand-logo">
+          <img class="logo-dark"
+               src="https://www.johnsontractor.com/wp-content/uploads/2022/08/johnson-tractor-white.png"
+               alt="Johnson Tractor"
+               onerror="this.style.display='none';document.getElementById('sb-fallback').style.display='block'"/>
+          <img class="logo-light"
+               src="https://www.johnsontractor.com/wp-content/uploads/2021/07/johnson-tractor-logo.png"
+               alt="Johnson Tractor"
+               onerror="this.style.display='none'"/>
+          <span id="sb-fallback" style="display:none;font-family:var(--mono);font-size:11px;font-weight:600;color:var(--accent);">JT</span>
+        </div>
+        <div class="brand-text">
+          <div class="brand-name">Daily Planner · Baldwin, WI</div>
+        </div>
+      </div>
       <div class="user-pill" id="userPill"></div>
     </div>
     <nav class="sb-nav">
@@ -251,7 +316,6 @@ textarea.f-input{resize:vertical;}
     </div>
   </aside>
   <main class="main">
-    <!-- SCHEDULE -->
     <div id="vSchedule" class="view">
       <div class="view-head">
         <div><h1 class="view-title" id="schedTitle">Monday — Schedule</h1><p class="view-sub">Live sync · edits appear instantly for both users</p></div>
@@ -263,13 +327,12 @@ textarea.f-input{resize:vertical;}
       <div class="legend" id="legend"></div>
       <div class="sched-grid" id="schedGrid"><div class="loading">Connecting…</div></div>
     </div>
-    <!-- MESSAGES -->
     <div id="vMessages" class="view hidden">
-      <div class="view-head"><div><h1 class="view-title">Quick notes &amp; updates</h1><p class="view-sub">Tag a project · syncs live</p></div></div>
+      <div class="view-head"><div><h1 class="view-title">Quick notes &amp; updates</h1><p class="view-sub">Tag a job or unit · syncs live</p></div></div>
       <div class="msg-wrap">
         <div class="msg-list" id="msgList"><div class="loading">Loading…</div></div>
         <div class="compose">
-          <input class="compose-tag" id="msgTag" placeholder="Project / job tag (optional)"/>
+          <input class="compose-tag" id="msgTag" placeholder="Job / unit / equipment tag (optional)"/>
           <div class="compose-row">
             <textarea class="compose-in" id="msgIn" placeholder="Type a note…" rows="1"></textarea>
             <button class="send-btn" onclick="sendMsg()">
@@ -279,7 +342,6 @@ textarea.f-input{resize:vertical;}
         </div>
       </div>
     </div>
-    <!-- MEETINGS -->
     <div id="vMeetings" class="view hidden">
       <div class="view-head">
         <div><h1 class="view-title">Meeting invites</h1><p class="view-sub">Send · accept · decline · synced live</p></div>
@@ -300,12 +362,12 @@ textarea.f-input{resize:vertical;}
         <div><label class="f-label">Start</label><select class="f-select" id="bStart"></select></div>
         <div><label class="f-label">End</label><select class="f-select" id="bEnd"></select></div>
       </div>
-      <div class="f-row"><label class="f-label">Block title</label><input class="f-input" id="bTitle" placeholder="e.g. Crew dispatch + job launch"/></div>
-      <div class="f-row"><label class="f-label">Detail (optional)</label><input class="f-input" id="bDetail" placeholder="e.g. Confirm departures, verify equipment"/></div>
+      <div class="f-row"><label class="f-label">Block title</label><input class="f-input" id="bTitle" placeholder="e.g. Equipment check-in"/></div>
+      <div class="f-row"><label class="f-label">Detail (optional)</label><input class="f-input" id="bDetail" placeholder="e.g. Inspect incoming units, log serial numbers"/></div>
       <div class="f-row"><label class="f-label">Category / color</label><div class="cat-grid" id="catGrid"></div></div>
     </div>
     <div class="m-foot">
-      <button class="btn-ghost hidden" id="bDelete" style="color:#c04040;" onclick="deleteBlock()">Delete block</button>
+      <button class="btn-ghost hidden" id="bDelete" style="color:#F87171;" onclick="deleteBlock()">Delete block</button>
       <div style="display:flex;gap:8px;"><button class="btn-ghost" onclick="closeBlockModal()">Cancel</button><button class="btn-primary" onclick="saveBlock()">Save block</button></div>
     </div>
   </div>
@@ -316,12 +378,12 @@ textarea.f-input{resize:vertical;}
   <div class="modal">
     <div class="m-head"><span class="m-title">New meeting invite</span><button class="m-close" onclick="closeMeetModal()">✕</button></div>
     <div class="m-body">
-      <div class="f-row"><label class="f-label">Title</label><input class="f-input" id="mTitle" placeholder="e.g. End-of-week job review"/></div>
+      <div class="f-row"><label class="f-label">Title</label><input class="f-input" id="mTitle" placeholder="e.g. Weekly team check-in"/></div>
       <div class="f-row two">
         <div><label class="f-label">Date</label><input class="f-input" type="date" id="mDate"/></div>
         <div><label class="f-label">Time</label><input class="f-input" type="time" id="mTime"/></div>
       </div>
-      <div class="f-row"><label class="f-label">Location</label><input class="f-input" id="mLoc" placeholder="Office, job site, or video link"/></div>
+      <div class="f-row"><label class="f-label">Location</label><input class="f-input" id="mLoc" placeholder="Showroom, shop, or video link"/></div>
       <div class="f-row"><label class="f-label">Notes</label><textarea class="f-input" id="mNotes" rows="3" placeholder="Agenda or context…"></textarea></div>
     </div>
     <div class="m-foot"><button class="btn-ghost" onclick="closeMeetModal()">Cancel</button><button class="btn-primary" onclick="saveMeeting()">Send invite</button></div>
@@ -343,327 +405,139 @@ const firebaseConfig = {
   storageBucket: "jt-daily-planner.firebasestorage.app",
   messagingSenderId: "883029001694",
   appId: "1:883029001694:web:82239a7eb13744c881894f"
-};/* ══════════════════════════════════════════ */
-
-const app = initializeApp(firebaseConfig);
-const db  = getDatabase(app);
-
-// ── CONSTANTS ────────────────────────────────────
-const DAYS = ["Mon","Tue","Wed","Thu","Fri","Sat"];
-// Johnson Tractor · Baldwin WI
-const CATS = {
-  ops:   {label:"Operations", color:"#378ADD"},
-  sales: {label:"Sales",      color:"#639922"},
-  admin: {label:"Admin",      color:"#BA7517"},
-  comms: {label:"Comms",      color:"#7F77DD"},
-  field: {label:"Field/site", color:"#D85A30"},
-  shared:{label:"Shared/sync",color:"#D4537E"},
-  flex:  {label:"Flex/lunch", color:"#888780"},
 };
+/* ════════════════════════════════════════════ */
 
-// Slots: 5-min 8:00-8:15 · 15-min 8:15-10:00 · 30-min 10:00-17:00
+const app=initializeApp(firebaseConfig);
+const db=getDatabase(app);
+const DAYS=["Mon","Tue","Wed","Thu","Fri","Sat"];
+const CATS={
+  ops:   {label:"Operations", color:"#D4251C"},
+  sales: {label:"Sales",      color:"#4A8FE8"},
+  admin: {label:"Admin",      color:"#D97706"},
+  comms: {label:"Comms",      color:"#8B7FE8"},
+  field: {label:"Shop/lot",   color:"#E07C2A"},
+  shared:{label:"Shared/sync",color:"#6B7280"},
+  flex:  {label:"Flex/lunch", color:"#4B5563"},
+};
 function makeSlots(){
-  const s=[]; const fmt=(h,m)=>`${h}:${m===0?"00":m<10?"0"+m:m}`;
+  const s=[];const fmt=(h,m)=>`${h}:${m===0?"00":m<10?"0"+m:m}`;
   const add=(h,m,n)=>{const t=h*60+m+n;return[Math.floor(t/60),t%60];};
   let h=8,m=0;
   [[3,5],[7,15],[14,30]].forEach(([count,mins],gi)=>{
-    for(let i=0;i<count;i++){
-      s.push({label:`${fmt(h,m)}–${fmt(...add(h,m,mins))}`,mins,secBreak:i===0&&gi>0});
-      [h,m]=add(h,m,mins);
-    }
-  });
-  return s;
+    for(let i=0;i<count;i++){s.push({label:`${fmt(h,m)}–${fmt(...add(h,m,mins))}`,mins,secBreak:i===0&&gi>0});[h,m]=add(h,m,mins);}
+  });return s;
 }
 const SLOTS=makeSlots();
 const TIME_OPTS=[];
-for(let h=8;h<=17;h++)for(let m=0;m<60;m+=5){
-  if(h===17&&m>0)break;
-  TIME_OPTS.push({label:`${h}:${m===0?"00":m<10?"0"+m:m}`,val:h*60+m});
-}
-
-// ── DEFAULT SCHEDULE ─────────────────────────────
+for(let h=8;h<=17;h++)for(let m=0;m<60;m+=5){if(h===17&&m>0)break;TIME_OPTS.push({label:`${h}:${m===0?"00":m<10?"0"+m:m}`,val:h*60+m});}
 const DEFAULTS={
-  // Johnson Tractor · Baldwin WI — Mackenzie's schedule
-  Manager:[
-    null,
-    {title:"Check voicemails",detail:"Overnight messages, urgent items",cat:"ops"},
-    {title:"Weather + job go/no-go",detail:"Check forecast for all active sites",cat:"ops"},
-    {title:"Morning huddle",detail:"Jobs, crew, priorities",cat:"shared"},
-    {title:"Morning huddle cont'd",detail:"Flags, assignments, open issues",cat:"shared"},
-    {title:"Crew dispatch",detail:"Confirm departures + equipment",cat:"ops"},
-    {title:"Customer notifications",detail:"Day-of scheduling emails, confirm access",cat:"comms"},
-    {title:"Notifications cont'd",detail:"Property managers, schedule changes",cat:"comms"},
-    {title:"Flex — urgent emails + calls",detail:"",cat:"flex"},
-    {title:"Proposals + costing",detail:"New estimates, tonnage calcs, mix specs",cat:"sales"},
-    {title:"Proposals + costing cont'd",detail:"Pricing, scope writeups",cat:"sales"},
-    {title:"B2B outreach",detail:"Apollo sequences, cold emails, follow-ups",cat:"sales"},
-    {title:"Lunch",detail:"",cat:"flex"},
-    {title:"Lunch",detail:"",cat:"flex"},
-    {title:"Field / site visits",detail:"QC, photos, crew check-in",cat:"field"},
-    {title:"Field / site visits cont'd",detail:"Problem solving, supplier calls on site",cat:"field"},
-    {title:"Proposals / follow-ups",detail:"Send estimates, update pipeline",cat:"sales"},
-    {title:"End-of-day ops review",detail:"Confirm completions, crew production",cat:"ops"},
-    {title:"Tomorrow's prep",detail:"Equipment, materials, crew assignments",cat:"ops"},
-    {title:"Close-of-day sync",detail:"Open issues, hand-offs to Manager",cat:"shared"},
-    null,null,null,null,
-  ],
   Mackenzie:[
     null,
-    {title:"Check voicemails",detail:"Overnight messages, urgent items",cat:"admin"},
-    {title:"Pull up today's job list",detail:"Confirm all jobs are scheduled + staffed",cat:"ops"},
-    {title:"Morning huddle",detail:"Confirm schedule, flag open locates",cat:"shared"},
-    {title:"Morning huddle cont'd",detail:"Customer calls expected today",cat:"shared"},
-    {title:"Call in locate tickets",detail:"Digger's Hotline submittals, log ticket #s",cat:"ops"},
-    {title:"Verify prior locates",detail:"Confirm clear, update records",cat:"ops"},
-    {title:"Invoicing",detail:"Process prior day invoices",cat:"admin"},
-    {title:"Filing + job records",detail:"Completion docs, update job files",cat:"admin"},
-    {title:"Phone block (inbound)",detail:"Customer calls, supplier coordination",cat:"comms"},
-    {title:"Phone block (inbound) cont'd",detail:"Subcontractors, quote inquiries",cat:"comms"},
-    {title:"Production entry",detail:"Tonnage, hours, material usage from field",cat:"admin"},
+    {title:"Check voicemails + emails",detail:"Overnight customer messages, urgent items",cat:"admin"},
+    {title:"Check today's schedule",detail:"Confirm appointments, deliveries, pickups",cat:"ops"},
+    {title:"Morning huddle",detail:"Daily priorities with manager",cat:"shared"},
+    {title:"Morning huddle cont'd",detail:"Open items, staffing, floor coverage",cat:"shared"},
+    {title:"Open + floor prep",detail:"Open registers, prep showroom, unlock lot",cat:"ops"},
+    {title:"Customer follow-ups",detail:"Pending quotes, financing, service status",cat:"comms"},
+    {title:"Parts + service coordination",detail:"Check parts orders, service bay schedule",cat:"ops"},
+    {title:"Flex — urgent items",detail:"",cat:"flex"},
+    {title:"Customer floor time",detail:"Walk-ins, equipment demos, quote requests",cat:"sales"},
+    {title:"Customer floor time cont'd",detail:"",cat:"sales"},
+    {title:"Admin block",detail:"Invoicing, filing, warranty paperwork",cat:"admin"},
     {title:"Lunch",detail:"",cat:"flex"},
     {title:"Lunch",detail:"",cat:"flex"},
-    {title:"Phone block (outbound)",detail:"Follow-ups, quote status calls",cat:"comms"},
-    {title:"Schedule confirmations",detail:"Next-day customer notifications",cat:"comms"},
-    {title:"Accounts / reporting",detail:"Job costs, receivables, purchase orders",cat:"admin"},
-    {title:"Tomorrow's scheduling",detail:"Set schedule, confirm locates are clear",cat:"ops"},
-    {title:"Send next-day notifications",detail:"Email customers with schedule details",cat:"comms"},
-    {title:"Close-of-day sync",detail:"Flag issues for Manager, confirm tomorrow locked",cat:"shared"},
+    {title:"Afternoon floor coverage",detail:"Customer appointments, test drives",cat:"sales"},
+    {title:"Afternoon floor coverage cont'd",detail:"",cat:"sales"},
+    {title:"Vendor + supplier calls",detail:"Parts status, delivery ETAs, pricing",cat:"comms"},
+    {title:"End-of-day ops",detail:"Close out tickets, lot check, secure facility",cat:"ops"},
+    {title:"Tomorrow's prep",detail:"Pull scheduled jobs, confirm appointments",cat:"ops"},
+    {title:"Close-of-day sync",detail:"Hand-off notes to manager",cat:"shared"},
+    null,null,null,null,
+  ],
+  Manager:[
+    null,
+    {title:"Check overnight messages",detail:"Sales leads, service escalations",cat:"admin"},
+    {title:"Review daily KPIs",detail:"Sales pipeline, service bay utilization",cat:"ops"},
+    {title:"Morning huddle",detail:"Daily priorities with Mackenzie",cat:"shared"},
+    {title:"Morning huddle cont'd",detail:"Staffing, floor plan, promotions",cat:"shared"},
+    {title:"Inventory walk",detail:"Lot check, new arrivals, unit condition",cat:"field"},
+    {title:"Sales team check-in",detail:"Pipeline review, customer follow-up status",cat:"sales"},
+    {title:"Dealer + manufacturer comms",detail:"Allocation, incentives, program updates",cat:"comms"},
+    {title:"Flex — urgent items",detail:"",cat:"flex"},
+    {title:"Deals + F&I review",detail:"Pending contracts, financing approvals",cat:"sales"},
+    {title:"Deals + F&I cont'd",detail:"",cat:"sales"},
+    {title:"Operations review",detail:"Service bay, parts dept, technician updates",cat:"ops"},
+    {title:"Lunch",detail:"",cat:"flex"},
+    {title:"Lunch",detail:"",cat:"flex"},
+    {title:"Customer meetings",detail:"High-value prospects, fleet accounts",cat:"sales"},
+    {title:"Customer meetings cont'd",detail:"",cat:"sales"},
+    {title:"Reporting + admin",detail:"Daily sales report, expense review",cat:"admin"},
+    {title:"End-of-day ops",detail:"Confirm close procedures, security",cat:"ops"},
+    {title:"Tomorrow's planning",detail:"Staffing, promotions, delivery schedule",cat:"ops"},
+    {title:"Close-of-day sync",detail:"Hand-off notes from Mackenzie",cat:"shared"},
     null,null,null,null,
   ]
 };
-
-// ── STATE ────────────────────────────────────────
 let CU=null,curDay="Mon",curView="schedule",viewPerson="Both";
-let schedData={},selCat="ops",selPerson="Jeff",editSlotIdx=null;
+let schedData={},selCat="ops",selPerson="Mackenzie",editSlotIdx=null;
 let lastMsgRead=Date.now(),unsubs=[];
 
-// ── GLOBALS ──────────────────────────────────────
-window.login=function(user){
-  CU=user; selPerson=user;
-  document.getElementById("loginScreen").classList.add("hidden");
-  document.getElementById("appScreen").classList.remove("hidden");
-  buildApp(); subscribeAll();
+window.toggleTheme=function(){
+  const light=document.body.classList.toggle("light");
+  document.getElementById("themeBtn").textContent=light?"🌙 Dark mode":"☀️ Light mode";
+  localStorage.setItem("jt-theme",light?"light":"dark");
 };
-window.signOut=function(){
-  unsubs.forEach(u=>u&&u()); unsubs=[]; CU=null; schedData={};
-  document.getElementById("appScreen").classList.add("hidden");
-  document.getElementById("loginScreen").classList.remove("hidden");
-};
-window.switchView=function(v,btn){
-  curView=v;
-  ["schedule","messages","meetings"].forEach(n=>{
-    document.getElementById("v"+n[0].toUpperCase()+n.slice(1)).classList.toggle("hidden",n!==v);
-  });
-  document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));
-  if(btn)btn.classList.add("active");
-  if(v==="messages"){lastMsgRead=Date.now();document.getElementById("msgBadge").classList.add("hidden");
-    setTimeout(()=>{const l=document.getElementById("msgList");if(l)l.scrollTop=9999;},120);}
-};
-window.openAddModal=function(person,slotIdx){
-  editSlotIdx=slotIdx; selPerson=person||CU; selCat="ops";
-  document.getElementById("bModalTitle").textContent="Add block";
-  document.getElementById("bTitle").value=""; document.getElementById("bDetail").value="";
-  document.getElementById("bDelete").classList.add("hidden");
-  snapTimes(slotIdx); buildModalPersonToggle(); buildCatGrid();
-  document.getElementById("blockOverlay").classList.remove("hidden");
-};
-window.openEditModal=function(person,slotIdx,block){
-  editSlotIdx=slotIdx; selPerson=person; selCat=block.cat||"ops";
-  document.getElementById("bModalTitle").textContent="Edit block";
-  document.getElementById("bTitle").value=block.title||""; document.getElementById("bDetail").value=block.detail||"";
-  document.getElementById("bDelete").classList.remove("hidden");
-  snapTimes(slotIdx); buildModalPersonToggle(); buildCatGrid();
-  document.getElementById("blockOverlay").classList.remove("hidden");
-};
-window.closeBlockModal=function(){document.getElementById("blockOverlay").classList.add("hidden");};
-window.saveBlock=function(){
-  const title=document.getElementById("bTitle").value.trim();
-  if(!title){document.getElementById("bTitle").focus();return;}
-  set(ref(db,`schedule/${curDay}/${selPerson}/${editSlotIdx}`),
-    {title,detail:document.getElementById("bDetail").value.trim(),cat:selCat,slotIndex:editSlotIdx});
-  window.closeBlockModal();
-};
-window.deleteBlock=function(){
-  remove(ref(db,`schedule/${curDay}/${selPerson}/${editSlotIdx}`));
-  window.closeBlockModal();
-};
-window.sendMsg=function(){
-  const text=document.getElementById("msgIn").value.trim();
-  const tag=document.getElementById("msgTag").value.trim();
-  if(!text)return;
-  push(ref(db,"messages"),{author:CU,text,project:tag||null,ts:Date.now()});
-  document.getElementById("msgIn").value="";
-};
-window.openMeetModal=function(){
-  ["mTitle","mLoc","mNotes"].forEach(id=>document.getElementById(id).value="");
-  document.getElementById("mDate").value=""; document.getElementById("mTime").value="";
-  document.getElementById("meetOverlay").classList.remove("hidden");
-};
-window.closeMeetModal=function(){document.getElementById("meetOverlay").classList.add("hidden");};
-window.saveMeeting=function(){
-  const title=document.getElementById("mTitle").value.trim();
-  if(!title){document.getElementById("mTitle").focus();return;}
-  push(ref(db,"meetings"),{title,date:document.getElementById("mDate").value,
-    time:document.getElementById("mTime").value,location:document.getElementById("mLoc").value.trim()||null,
-    notes:document.getElementById("mNotes").value.trim()||null,from:CU,
-    to:CU==="Mackenzie"?"Manager":"Mackenzie",status:"pending",ts:Date.now()});
-  window.closeMeetModal();
-};
+(()=>{if(localStorage.getItem("jt-theme")==="light"){document.body.classList.add("light");document.getElementById("themeBtn").textContent="🌙 Dark mode";}})();
 
-// ── BUILD UI ─────────────────────────────────────
+window.login=function(u){CU=u;selPerson=u;document.getElementById("loginScreen").classList.add("hidden");document.getElementById("appScreen").classList.remove("hidden");buildApp();subscribeAll();};
+window.signOut=function(){unsubs.forEach(u=>u&&u());unsubs=[];CU=null;schedData={};document.getElementById("appScreen").classList.add("hidden");document.getElementById("loginScreen").classList.remove("hidden");};
+window.switchView=function(v,btn){curView=v;["schedule","messages","meetings"].forEach(n=>document.getElementById("v"+n[0].toUpperCase()+n.slice(1)).classList.toggle("hidden",n!==v));document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));if(btn)btn.classList.add("active");if(v==="messages"){lastMsgRead=Date.now();document.getElementById("msgBadge").classList.add("hidden");setTimeout(()=>{const l=document.getElementById("msgList");if(l)l.scrollTop=9999;},120);}};
+window.openAddModal=function(p,si){editSlotIdx=si;selPerson=p||CU;selCat="ops";document.getElementById("bModalTitle").textContent="Add block";document.getElementById("bTitle").value="";document.getElementById("bDetail").value="";document.getElementById("bDelete").classList.add("hidden");snapTimes(si);buildMPT();buildCatGrid();document.getElementById("blockOverlay").classList.remove("hidden");};
+window.openEditModal=function(p,si,block){editSlotIdx=si;selPerson=p;selCat=block.cat||"ops";document.getElementById("bModalTitle").textContent="Edit block";document.getElementById("bTitle").value=block.title||"";document.getElementById("bDetail").value=block.detail||"";document.getElementById("bDelete").classList.remove("hidden");snapTimes(si);buildMPT();buildCatGrid();document.getElementById("blockOverlay").classList.remove("hidden");};
+window.closeBlockModal=function(){document.getElementById("blockOverlay").classList.add("hidden");};
+window.saveBlock=function(){const t=document.getElementById("bTitle").value.trim();if(!t){document.getElementById("bTitle").focus();return;}set(ref(db,`schedule/${curDay}/${selPerson}/${editSlotIdx}`),{title:t,detail:document.getElementById("bDetail").value.trim(),cat:selCat,slotIndex:editSlotIdx});window.closeBlockModal();};
+window.deleteBlock=function(){remove(ref(db,`schedule/${curDay}/${selPerson}/${editSlotIdx}`));window.closeBlockModal();};
+window.sendMsg=function(){const t=document.getElementById("msgIn").value.trim();const tag=document.getElementById("msgTag").value.trim();if(!t)return;push(ref(db,"messages"),{author:CU,text:t,project:tag||null,ts:Date.now()});document.getElementById("msgIn").value="";};
+window.openMeetModal=function(){["mTitle","mLoc","mNotes"].forEach(id=>document.getElementById(id).value="");document.getElementById("mDate").value="";document.getElementById("mTime").value="";document.getElementById("meetOverlay").classList.remove("hidden");};
+window.closeMeetModal=function(){document.getElementById("meetOverlay").classList.add("hidden");};
+window.saveMeeting=function(){const t=document.getElementById("mTitle").value.trim();if(!t){document.getElementById("mTitle").focus();return;}push(ref(db,"meetings"),{title:t,date:document.getElementById("mDate").value,time:document.getElementById("mTime").value,location:document.getElementById("mLoc").value.trim()||null,notes:document.getElementById("mNotes").value.trim()||null,from:CU,to:CU==="Mackenzie"?"Manager":"Mackenzie",status:"pending",ts:Date.now()});window.closeMeetModal();};
+
 function buildApp(){
+  const av=CU==="Mackenzie"?"background:#1E3A5F;color:#93C5FD;":"background:#7F1D1D;color:#FCA5A5;";
   const init=CU==="Mackenzie"?"MK":"MGR";
-  const av=CU==="Mackenzie"?"background:#1B5E20;color:#A5D6A7;":"background:#B71C1C;color:#FFCDD2;";
   document.getElementById("userPill").innerHTML=`<span class="avatar" style="${av}">${init}</span>${CU}`;
-  const dbEl=document.getElementById("dayBtns"); dbEl.innerHTML="";
-  DAYS.forEach(d=>{
-    const b=document.createElement("button"); b.className="day-btn"+(d===curDay?" active":""); b.textContent=d;
-    b.onclick=()=>{curDay=d;document.querySelectorAll(".day-btn").forEach(x=>x.classList.toggle("active",x.textContent===d));
-      document.getElementById("schedTitle").textContent=`${d} — Schedule`;renderSchedule();};
-    dbEl.appendChild(b);
-  });
-  document.getElementById("legend").innerHTML=Object.entries(CATS)
-    .map(([,v])=>`<div class="leg"><div class="leg-dot" style="background:${v.color}"></div>${v.label}</div>`).join("");
-  buildPersonToggle();
-  const html=TIME_OPTS.map(o=>`<option value="${o.val}">${o.label}</option>`).join("");
-  document.getElementById("bStart").innerHTML=html; document.getElementById("bEnd").innerHTML=html;
+  const de=document.getElementById("dayBtns");de.innerHTML="";
+  DAYS.forEach(d=>{const b=document.createElement("button");b.className="day-btn"+(d===curDay?" active":"");b.textContent=d;b.onclick=()=>{curDay=d;document.querySelectorAll(".day-btn").forEach(x=>x.classList.toggle("active",x.textContent===d));document.getElementById("schedTitle").textContent=`${d} — Schedule`;renderSchedule();};de.appendChild(b);});
+  document.getElementById("legend").innerHTML=Object.entries(CATS).map(([,v])=>`<div class="leg"><div class="leg-dot" style="background:${v.color}"></div>${v.label}</div>`).join("");
+  buildPT();
+  const h=TIME_OPTS.map(o=>`<option value="${o.val}">${o.label}</option>`).join("");
+  document.getElementById("bStart").innerHTML=h;document.getElementById("bEnd").innerHTML=h;
   document.getElementById("msgIn").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();window.sendMsg();}});
 }
-function buildPersonToggle(){
-  const el=document.getElementById("personToggle"); el.innerHTML="";
-  ["Mackenzie","Manager","Both"].forEach(p=>{
-    const b=document.createElement("button"); b.className="person-btn"+(p===viewPerson?" active":""); b.textContent=p;
-    b.onclick=()=>{viewPerson=p;buildPersonToggle();renderSchedule();}; el.appendChild(b);
-  });
-}
-function buildModalPersonToggle(){
-  const el=document.getElementById("modalPersonToggle"); el.innerHTML="";
-  ["Mackenzie","Manager"].forEach(p=>{
-    const b=document.createElement("button"); b.className="person-btn"+(p===selPerson?" active":""); b.textContent=p;
-    b.onclick=()=>{selPerson=p;buildModalPersonToggle();}; el.appendChild(b);
-  });
-}
-function buildCatGrid(){
-  const g=document.getElementById("catGrid"); g.innerHTML="";
-  Object.entries(CATS).forEach(([k,v])=>{
-    const b=document.createElement("button");
-    b.className="cat-btn c-"+k+(k===selCat?" active":"");
-    const [r,g2,bl]=[parseInt(v.color.slice(1,3),16),parseInt(v.color.slice(3,5),16),parseInt(v.color.slice(5,7),16)];
-    b.style.cssText=`--cc:${v.color};--cbg:rgba(${r},${g2},${bl},0.13);--ct:${v.color};`;
-    b.innerHTML=`<div class="cat-sw" style="background:${v.color}"></div>${v.label}`;
-    b.onclick=()=>{selCat=k;buildCatGrid();}; g.appendChild(b);
-  });
-}
-function snapTimes(slotIdx){
-  const slot=SLOTS[slotIdx]||SLOTS[0]; const parts=slot.label.split("–");
-  const toMin=s=>{const[h,m]=s.split(":").map(Number);return h*60+m;};
-  const snap=(id,val)=>{const sel=document.getElementById(id);
-    sel.value=TIME_OPTS.reduce((p,c)=>Math.abs(c.val-val)<Math.abs(p.val-val)?c:p).val;};
-  snap("bStart",toMin(parts[0])); snap("bEnd",toMin(parts[1]));
-}
-
-// ── FIREBASE ─────────────────────────────────────
+function buildPT(){const el=document.getElementById("personToggle");el.innerHTML="";["Mackenzie","Manager","Both"].forEach(p=>{const b=document.createElement("button");b.className="person-btn"+(p===viewPerson?" active":"");b.textContent=p;b.onclick=()=>{viewPerson=p;buildPT();renderSchedule();};el.appendChild(b);});}
+function buildMPT(){const el=document.getElementById("modalPersonToggle");el.innerHTML="";["Mackenzie","Manager"].forEach(p=>{const b=document.createElement("button");b.className="person-btn"+(p===selPerson?" active":"");b.textContent=p;b.onclick=()=>{selPerson=p;buildMPT();};el.appendChild(b);});}
+function buildCatGrid(){const g=document.getElementById("catGrid");g.innerHTML="";Object.entries(CATS).forEach(([k,v])=>{const b=document.createElement("button");b.className="cat-btn c-"+k+(k===selCat?" active":"");const[r,g2,bl]=[parseInt(v.color.slice(1,3),16),parseInt(v.color.slice(3,5),16),parseInt(v.color.slice(5,7),16)];b.style.cssText=`--cc:${v.color};--cbg:rgba(${r},${g2},${bl},0.14);--ct:${v.color};`;b.innerHTML=`<div class="cat-sw" style="background:${v.color}"></div>${v.label}`;b.onclick=()=>{selCat=k;buildCatGrid();};g.appendChild(b);});}
+function snapTimes(si){const slot=SLOTS[si]||SLOTS[0];const[a,b]=slot.label.split("–");const toM=s=>{const[h,m]=s.split(":").map(Number);return h*60+m;};const snap=(id,v)=>{const s=document.getElementById(id);s.value=TIME_OPTS.reduce((p,c)=>Math.abs(c.val-v)<Math.abs(p.val-v)?c:p).val;};snap("bStart",toM(a));snap("bEnd",toM(b));}
 function subscribeAll(){
-  unsubs.push(onValue(ref(db,"schedule"),snap=>{
-    schedData=snap.val()||{};
-    if(!snap.val())seedDefaults();
-    if(curView==="schedule")renderSchedule();
-  }));
+  unsubs.push(onValue(ref(db,"schedule"),snap=>{schedData=snap.val()||{};if(!snap.val())seedDefaults();if(curView==="schedule")renderSchedule();}));
   unsubs.push(onValue(ref(db,"messages"),snap=>renderMessages(snap.val())));
   unsubs.push(onValue(ref(db,"meetings"),snap=>renderMeetings(snap.val())));
 }
-function seedDefaults(){
-  DAYS.forEach(day=>["Mackenzie","Manager"].forEach(person=>
-    DEFAULTS[person].forEach((block,i)=>{if(block)set(ref(db,`schedule/${day}/${person}/${i}`),{...block,slotIndex:i});})
-  ));
-}
-
-// ── RENDER ───────────────────────────────────────
+function seedDefaults(){DAYS.forEach(day=>["Mackenzie","Manager"].forEach(person=>DEFAULTS[person].forEach((block,i)=>{if(block)set(ref(db,`schedule/${day}/${person}/${i}`),{...block,slotIndex:i});})));}
 function renderSchedule(){
-  const g=document.getElementById("schedGrid"); g.innerHTML="";
-  const showJ=viewPerson==="Jeff"||viewPerson==="Both";
-  const showM=viewPerson==="Mackenzie"||viewPerson==="Both";
-  const cols=showJ&&showM?"82px 1fr 1fr":"82px 1fr";
-  const hd=document.createElement("div"); hd.className="sched-head"; hd.style.gridTemplateColumns=cols;
-  hd.innerHTML=`<div class="sh-cell">Time</div>`+(showJ?`<div class="sh-cell">Mackenzie</div>`:"")+
-    (showM?`<div class="sh-cell">Mackenzie</div>`:"");
+  const g=document.getElementById("schedGrid");g.innerHTML="";
+  const sM=viewPerson==="Mackenzie"||viewPerson==="Both",sMgr=viewPerson==="Manager"||viewPerson==="Both";
+  const cols=sM&&sMgr?"82px 1fr 1fr":"82px 1fr";
+  const hd=document.createElement("div");hd.className="sched-head";hd.style.gridTemplateColumns=cols;
+  hd.innerHTML=`<div class="sh-cell">Time</div>`+(sM?`<div class="sh-cell">Mackenzie</div>`:"")+( sMgr?`<div class="sh-cell">Manager</div>`:"");
   g.appendChild(hd);
   const dayD=schedData[curDay]||{};
-  SLOTS.forEach((slot,i)=>{
-    const row=document.createElement("div");
-    row.className=`sched-row m${slot.mins}${slot.secBreak?" sec-break":""}`;
-    row.style.gridTemplateColumns=cols;
-    const tc=document.createElement("div"); tc.className="t-cell"; tc.textContent=slot.label; row.appendChild(tc);
-    if(showJ)row.appendChild(makeCell("Jeff",i,dayD));
-    if(showM)row.appendChild(makeCell("Mackenzie",i,dayD));
-    g.appendChild(row);
-  });
+  SLOTS.forEach((slot,i)=>{const row=document.createElement("div");row.className=`sched-row m${slot.mins}${slot.secBreak?" sec-break":""}`;row.style.gridTemplateColumns=cols;const tc=document.createElement("div");tc.className="t-cell";tc.textContent=slot.label;row.appendChild(tc);if(sM)row.appendChild(makeCell("Mackenzie",i,dayD));if(sMgr)row.appendChild(makeCell("Manager",i,dayD));g.appendChild(row);});
 }
-function makeCell(person,idx,dayD){
-  const block=(dayD[person]||{})[idx]||null;
-  const cell=document.createElement("div");
-  if(block){
-    cell.className=`b-cell c-${block.cat||"flex"}`;
-    cell.innerHTML=`<div class="cat-bar"></div><div class="b-inner">
-      <div class="b-pill">${CATS[block.cat]?.label||""}</div>
-      <div class="b-title">${esc(block.title)}</div>
-      ${block.detail?`<div class="b-detail">${esc(block.detail)}</div>`:""}</div>`;
-    cell.onclick=()=>window.openEditModal(person,idx,block);
-  }else{
-    cell.className="b-cell empty";
-    cell.innerHTML=`<span class="empty-hint">+ add block</span>`;
-    cell.onclick=()=>window.openAddModal(person,idx);
-  }
-  return cell;
-}
-function renderMessages(data){
-  const list=document.getElementById("msgList");
-  if(!data){list.innerHTML=`<div class="empty-state">No messages yet — send a note below.</div>`;return;}
-  const msgs=Object.entries(data).map(([id,m])=>({id,...m})).sort((a,b)=>a.ts-b.ts);
-  list.innerHTML="";
-  msgs.forEach(m=>{
-    const mine=m.author===CU; const div=document.createElement("div");
-    div.className="msg-bub "+(mine?"mine":"theirs");
-    const t=new Date(m.ts).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
-    div.innerHTML=`<div class="msg-meta"><span class="msg-who">${esc(m.author)}</span>
-      ${m.project?`<span class="msg-tag">${esc(m.project)}</span>`:""}<span>${t}</span></div>
-      <div class="msg-text">${esc(m.text)}</div>`;
-    list.appendChild(div);
-  });
-  list.scrollTop=list.scrollHeight;
-  const unread=msgs.filter(m=>m.author!==CU&&m.ts>lastMsgRead).length;
-  const badge=document.getElementById("msgBadge");
-  if(unread>0&&curView!=="messages"){badge.textContent=unread;badge.classList.remove("hidden");}
-  else badge.classList.add("hidden");
-}
-function renderMeetings(data){
-  const list=document.getElementById("meetList");
-  if(!data){list.innerHTML=`<div class="empty-state">No meeting invites yet.</div>`;return;}
-  const meets=Object.entries(data).map(([id,m])=>({id,...m})).sort((a,b)=>(a.ts||0)-(b.ts||0));
-  list.innerHTML="";
-  meets.forEach(meet=>{
-    const mine=meet.from===CU; const s=meet.status||"pending";
-    const card=document.createElement("div");
-    card.className=`meet-card ${mine?"pm":s==="pending"?"pt":s==="accepted"?"acc":"dec"}`;
-    const dStr=meet.date?new Date(meet.date+"T12:00").toLocaleDateString([],{weekday:"short",month:"short",day:"numeric"}):"TBD";
-    card.innerHTML=`<div class="meet-info"><div class="meet-title">${esc(meet.title)}</div>
-      <div class="meet-meta"><span>📅 ${dStr} ${meet.time||""}</span>
-      ${meet.location?`<span>📍 ${esc(meet.location)}</span>`:""}<span>From: ${esc(meet.from)}</span></div>
-      ${meet.notes?`<div class="meet-notes">${esc(meet.notes)}</div>`:""}</div>
-      <div class="meet-actions"><span class="ms ms-${s[0]}">${s[0].toUpperCase()+s.slice(1)}</span>
-      ${!mine&&s==="pending"?`<button class="btn-acc" data-id="${meet.id}">Accept</button><button class="btn-dec" data-id="${meet.id}">Decline</button>`:""}
-      ${mine?`<button class="btn-dec" data-id="${meet.id}" data-rm="1">Remove</button>`:""}</div>`;
-    card.querySelector(".btn-acc")?.addEventListener("click",e=>update(ref(db,`meetings/${e.target.dataset.id}`),{status:"accepted"}));
-    card.querySelector(".btn-dec")?.addEventListener("click",e=>{
-      if(e.target.dataset.rm)remove(ref(db,`meetings/${e.target.dataset.id}`));
-      else update(ref(db,`meetings/${e.target.dataset.id}`),{status:"declined"});
-    });
-    list.appendChild(card);
-  });
-  const pend=meets.filter(m=>m.to===CU&&m.status==="pending").length;
-  const badge=document.getElementById("meetBadge");
-  if(pend>0){badge.textContent=pend;badge.classList.remove("hidden");}else badge.classList.add("hidden");
-}
+function makeCell(person,idx,dayD){const block=(dayD[person]||{})[idx]||null;const cell=document.createElement("div");if(block){cell.className=`b-cell c-${block.cat||"flex"}`;cell.innerHTML=`<div class="cat-bar"></div><div class="b-inner"><div class="b-pill">${CATS[block.cat]?.label||""}</div><div class="b-title">${esc(block.title)}</div>${block.detail?`<div class="b-detail">${esc(block.detail)}</div>`:""}</div>`;cell.onclick=()=>window.openEditModal(person,idx,block);}else{cell.className="b-cell empty";cell.innerHTML=`<span class="empty-hint">+ add block</span>`;cell.onclick=()=>window.openAddModal(person,idx);}return cell;}
+function renderMessages(data){const list=document.getElementById("msgList");if(!data){list.innerHTML=`<div class="empty-state">No messages yet.</div>`;return;}const msgs=Object.entries(data).map(([id,m])=>({id,...m})).sort((a,b)=>a.ts-b.ts);list.innerHTML="";msgs.forEach(m=>{const mine=m.author===CU;const div=document.createElement("div");div.className="msg-bub "+(mine?"mine":"theirs");const t=new Date(m.ts).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});div.innerHTML=`<div class="msg-meta"><span class="msg-who">${esc(m.author)}</span>${m.project?`<span class="msg-tag">${esc(m.project)}</span>`:""}<span>${t}</span></div><div class="msg-text">${esc(m.text)}</div>`;list.appendChild(div);});list.scrollTop=list.scrollHeight;const unread=msgs.filter(m=>m.author!==CU&&m.ts>lastMsgRead).length;const badge=document.getElementById("msgBadge");if(unread>0&&curView!=="messages"){badge.textContent=unread;badge.classList.remove("hidden");}else badge.classList.add("hidden");}
+function renderMeetings(data){const list=document.getElementById("meetList");if(!data){list.innerHTML=`<div class="empty-state">No meeting invites yet.</div>`;return;}const meets=Object.entries(data).map(([id,m])=>({id,...m})).sort((a,b)=>(a.ts||0)-(b.ts||0));list.innerHTML="";meets.forEach(meet=>{const mine=meet.from===CU;const s=meet.status||"pending";const card=document.createElement("div");card.className=`meet-card ${mine?"pm":s==="pending"?"pt":s==="accepted"?"acc":"dec"}`;const dStr=meet.date?new Date(meet.date+"T12:00").toLocaleDateString([],{weekday:"short",month:"short",day:"numeric"}):"TBD";card.innerHTML=`<div class="meet-info"><div class="meet-title">${esc(meet.title)}</div><div class="meet-meta"><span>📅 ${dStr} ${meet.time||""}</span>${meet.location?`<span>📍 ${esc(meet.location)}</span>`:""}<span>From: ${esc(meet.from)}</span></div>${meet.notes?`<div class="meet-notes">${esc(meet.notes)}</div>`:""}</div><div class="meet-actions"><span class="ms ms-${s[0]}">${s[0].toUpperCase()+s.slice(1)}</span>${!mine&&s==="pending"?`<button class="btn-acc" data-id="${meet.id}">Accept</button><button class="btn-dec" data-id="${meet.id}">Decline</button>`:""}${mine?`<button class="btn-dec" data-id="${meet.id}" data-rm="1">Remove</button>`:""}</div>`;card.querySelector(".btn-acc")?.addEventListener("click",e=>update(ref(db,`meetings/${e.target.dataset.id}`),{status:"accepted"}));card.querySelector(".btn-dec")?.addEventListener("click",e=>{if(e.target.dataset.rm)remove(ref(db,`meetings/${e.target.dataset.id}`));else update(ref(db,`meetings/${e.target.dataset.id}`),{status:"declined"});});list.appendChild(card);});const pend=meets.filter(m=>m.to===CU&&m.status==="pending").length;const badge=document.getElementById("meetBadge");if(pend>0){badge.textContent=pend;badge.classList.remove("hidden");}else badge.classList.add("hidden");}
 function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
 </script>
 </body>
